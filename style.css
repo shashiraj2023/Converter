@@ -66,3 +66,86 @@ h1:hover {
 
 .input-group,
 .currency-box > div {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+  opacity: 0.9;
+}
+
+input,
+select {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #c7d2fe;
+}
+
+.currency-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.currency-box div {
+  width: 40%;
+}
+
+.arrow {
+  font-size: 1.6rem;
+  margin-top: 20px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+}
+
+#result {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Mobile optimization */
+@media (max-width: 420px) {
+  .currency-box {
+    flex-direction: column;
+  }
+
+  .currency-box div {
+    width: 100%;
+  }
+
+  .arrow {
+    margin: 10px 0;
+  }
+}
