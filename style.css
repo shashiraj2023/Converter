@@ -1,10 +1,12 @@
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Body & Background */
 body {
   min-height: 100vh;
   background: linear-gradient(135deg, #4f46e5, #9333ea);
@@ -14,6 +16,7 @@ body {
   padding: 20px;
 }
 
+/* Card */
 .card {
   width: 100%;
   max-width: 420px;
@@ -23,40 +26,39 @@ body {
   padding: 30px;
   border-radius: 20px;
   color: #fff;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease;
 }
 
 .card:hover {
-  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
 }
 
-h1 {
+/* Header & Title */
+header h1 {
   text-align: center;
   font-size: 1.8rem;
   margin-bottom: 5px;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border-radius: 15px;
-
-  /* Glass effect */
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.4s ease;
-
   font-weight: 600;
+  transition: all 0.4s ease;
 }
 
-h1:hover {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+header h1:hover {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   transform: scale(1.05);
   cursor: pointer;
 }
 
+/* Subtitle */
 .subtitle {
   text-align: center;
   font-size: 0.9rem;
@@ -64,6 +66,7 @@ h1:hover {
   margin-bottom: 25px;
 }
 
+/* Input Groups */
 .input-group,
 .currency-box > div {
   display: flex;
@@ -71,7 +74,7 @@ h1:hover {
 }
 
 label {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   margin-bottom: 6px;
   opacity: 0.9;
 }
@@ -90,6 +93,7 @@ select:focus {
   outline: 2px solid #c7d2fe;
 }
 
+/* Currency Box */
 .currency-box {
   display: flex;
   justify-content: space-between;
@@ -104,8 +108,10 @@ select:focus {
 .arrow {
   font-size: 1.6rem;
   margin-top: 20px;
+  text-align: center;
 }
 
+/* Convert Button */
 button {
   width: 100%;
   padding: 14px;
@@ -128,6 +134,7 @@ button:hover {
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
 }
 
+/* Result Text */
 #result {
   margin-top: 20px;
   text-align: center;
@@ -135,7 +142,15 @@ button:hover {
   font-weight: 600;
 }
 
-/* Mobile optimization */
+/* Footer */
+footer {
+  margin-top: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+}
+
+/* Mobile Optimization */
 @media (max-width: 420px) {
   .currency-box {
     flex-direction: column;
