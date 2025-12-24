@@ -3,39 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Currency Converter</title>
+  
+  <title>Currency Converter - Convert USD, INR, EUR & More</title>
+  <meta name="description" content="Currency Converter - Convert USD, INR, EUR, GBP, JPY and more instantly with real-time exchange rates. Fast, responsive, and easy to use.">
+  <meta name="keywords" content="currency converter, USD to INR, currency exchange, convert money, forex rates, online currency calculator">
+  <meta name="author" content="Your Name">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Currency Converter - Real-time Exchange Rates">
+  <meta property="og:description" content="Convert currencies instantly with real-time exchange rates. Responsive and easy to use.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://your-site-url.vercel.app">
+  <meta property="og:image" content="https://your-site-url.vercel.app/preview.png">
+
+  <!-- Google Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Currency Converter",
+    "url": "https://your-site-url.vercel.app",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "Convert currencies instantly with real-time exchange rates."
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div class="card">
+  <header>
     <h1>💱 Currency Converter</h1>
-    <p class="subtitle">Real-time exchange rates</p>
+    <p class="subtitle">Convert currencies in real-time with ease</p>
+  </header>
 
-    <div class="input-group">
-      <label>Amount</label>
+  <main class="card">
+    <section class="input-group">
+      <label for="amount">Amount</label>
       <input type="number" id="amount" placeholder="Enter amount" />
-    </div>
+    </section>
 
-    <div class="currency-box">
+    <section class="currency-box">
       <div>
-        <label>From</label>
+        <label for="fromCurrency">From</label>
         <select id="fromCurrency"></select>
       </div>
 
       <span class="arrow">⇄</span>
 
       <div>
-        <label>To</label>
+        <label for="toCurrency">To</label>
         <select id="toCurrency"></select>
       </div>
-    </div>
+    </section>
 
     <button onclick="convertCurrency()">Convert</button>
 
     <p id="result"></p>
-  </div>
+  </main>
+
+  <footer>
+    <p style="text-align:center; margin-top:20px; color:rgba(255,255,255,0.7); font-size:0.8rem;">
+      © 2025 Currency Converter. All rights reserved.
+    </p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
