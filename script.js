@@ -67,8 +67,11 @@ function swapCurrencies() {
   toCurrency.value = temp;
 }
 
+
+amountInput.addEventListener("keydown", e => {
+  if (e.key === "Enter")
+    e.preventDefault();
+    convertCurrency();
+});
 // ⚡ Prefetch rates on page load
 fetchRates();
-amountInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") convertCurrency();
-});
