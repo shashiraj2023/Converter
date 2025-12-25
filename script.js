@@ -8,35 +8,65 @@ const currencies = ["USD", "INR", "EUR", "GBP", "JPY", "AUD", "CAD"];
 let ratesCache = {};
 let baseCurrency = "USD";
 
+// --------------------
 // Populate dropdowns
-currencies.forEach(currency => {
-  fromCurrency.innerHTML += `<option value="${currency}">${currency}</option>`;
-  toCurrency.innerHTML += `<option value="${currency}">${currency}</option>`;
+// --------------------
+currencies.forEach(c => {
+  fromCurrency.innerHTML += `<option value="${c}">${c}</option>`;
+  toCurrency.innerHTML += `<option value="${c}">${c}</option>`;
 });
 
 fromCurrency.value = "USD";
 toCurrency.value = "INR";
 
-// ✅ Fetch rates once
-async function fetchRates(base = "USD") {
+// --------------------
+// Load cached data instantly
+// --------------------
+const cachedRates = localStorage.getItem("ratesCache");
+const cachedBase = localStorage.getItem("baseCurrency");
+
+if (cachedRates && cachedBase) {
+  ratesCache = JSON.parse(cachedRates);
+  baseCurrency = cachedBase;
+  result.innerText = "Ready ✔ (cached)";
+} else {
   result.innerText = "Loading rates...";
+}
+
+// --------------------
+// Fetch with timeout
+// --------------------
+async function fetchRates(base = "USD") {
   try {
-    const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${base}`);
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 3000); // ⏱ 3 sec timeout
+
+    const res = await fetch(
+      `https://api.exchangerate-api.com/v4/latest/${base}`,
+      { signal: controller.signal }
+    );
+
     const data = await res.json();
     ratesCache = data.rates;
     baseCurrency = base;
-    result.innerText = "Rates loaded ✔";
-  } catch (error) {
-    result.innerText = "Failed to load rates ❌";
+
+    // 💾 Save to localStorage
+    localStorage.setItem("ratesCache", JSON.stringify(ratesCache));
+    localStorage.setItem("baseCurrency", base);
+
+    result.innerText = "Rates updated ✔";
+  } catch (err) {
+    result.innerText = "Using cached rates ⚡";
   }
 }
 
-// ✅ Convert function
+// --------------------
+// Convert instantly
+// --------------------
 function convertCurrency() {
   const amount = amountInput.value;
-
   if (!amount) {
-    result.innerText = "Please enter amount";
+    result.innerText = "Enter amount";
     return;
   }
 
@@ -56,20 +86,17 @@ function calculate(amount, to) {
   result.innerText = `${amount} ${baseCurrency} = ${converted} ${to}`;
 }
 
-// 🔁 Swap currencies
-function swapCurrencies() {
-  const temp = fromCurrency.value;
-  fromCurrency.value = toCurrency.value;
-  toCurrency.value = temp;
-}
-
-// ✅ ENTER KEY FIX (THIS IS THE IMPORTANT PART)
-amountInput.addEventListener("keydown", function (e) {
+// --------------------
+// ENTER KEY
+// --------------------
+amountInput.addEventListener("keydown", e => {
   if (e.key === "Enter") {
     e.preventDefault();
     convertCurrency();
   }
 });
 
-// 🚀 Prefetch on load
-fetchRates();
+// --------------------
+// Background refresh (no blocking)
+// --------------------
+setTimeout(() => fetchRates(baseCurrency), 1000);
