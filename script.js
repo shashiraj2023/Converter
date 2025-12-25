@@ -5,7 +5,7 @@ const amountInput = document.getElementById("amount");
 
 const currencies = ["USD", "INR", "EUR", "GBP", "JPY", "AUD", "CAD"];
 
-let ratesCache = {}; // 💾 cache exchange rates
+let ratesCache = {};
 let baseCurrency = "USD";
 
 // Populate dropdowns
@@ -17,25 +17,24 @@ currencies.forEach(currency => {
 fromCurrency.value = "USD";
 toCurrency.value = "INR";
 
-// 🚀 Fetch exchange rates ONCE
+// ✅ Fetch rates once
 async function fetchRates(base = "USD") {
   result.innerText = "Loading rates...";
   try {
-    const res = await fetch(
-      `https://api.exchangerate-api.com/v4/latest/${base}`
-    );
+    const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${base}`);
     const data = await res.json();
     ratesCache = data.rates;
     baseCurrency = base;
     result.innerText = "Rates loaded ✔";
-  } catch (err) {
+  } catch (error) {
     result.innerText = "Failed to load rates ❌";
   }
 }
 
-// 🔄 Convert instantly (no API call)
+// ✅ Convert function
 function convertCurrency() {
   const amount = amountInput.value;
+
   if (!amount) {
     result.innerText = "Please enter amount";
     return;
@@ -44,11 +43,8 @@ function convertCurrency() {
   const from = fromCurrency.value;
   const to = toCurrency.value;
 
-  // If base currency changed → fetch again
   if (from !== baseCurrency) {
-    fetchRates(from).then(() => {
-      calculate(amount, to);
-    });
+    fetchRates(from).then(() => calculate(amount, to));
   } else {
     calculate(amount, to);
   }
@@ -60,18 +56,20 @@ function calculate(amount, to) {
   result.innerText = `${amount} ${baseCurrency} = ${converted} ${to}`;
 }
 
-// 🔁 Swap currencies instantly
+// 🔁 Swap currencies
 function swapCurrencies() {
   const temp = fromCurrency.value;
   fromCurrency.value = toCurrency.value;
   toCurrency.value = temp;
 }
 
-
-amountInput.addEventListener("keydown", e => {
-  if (e.key === "Enter")
+// ✅ ENTER KEY FIX (THIS IS THE IMPORTANT PART)
+amountInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
     e.preventDefault();
     convertCurrency();
+  }
 });
-// ⚡ Prefetch rates on page load
+
+// 🚀 Prefetch on load
 fetchRates();
